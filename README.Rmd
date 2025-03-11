@@ -1,0 +1,94 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%",
+  dev = "svglite"
+)
+```
+
+# dltam
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+This package implements the calculation of the dynamic local trend association measure (DLTAM) for
+a pair of time series, proposed by García-López, F. J., Batyrshin, I., and Gelbukh, A., in the paper
+["Dynamic Local Trend Associations in Analysis of Comovements of Financial Time Series"](https://doi.org/10.1007/978-3-319-67137-6_20).
+
+## Installation
+
+You can install this package using:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("adamoshen/dltam")
+```
+
+## Basic usage
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(loco)
+library(dltam)
+```
+
+Suppose we are interested in the DLTAM of average daily temperature readings at JFK and LAX
+airports. This data can be found in the [loco](https://github.com/adamoshen/loco) package. A quick
+preview of the data:
+
+```{r}
+daily_temperature %>%
+  group_by(origin) %>%
+  slice_head(n = 6) %>%
+  group_split()
+```
+
+First, we require a data frame containing the two time series' data as columns.
+
+```{r}
+daily_temperature_wide <- daily_temperature %>%
+  pivot_wider(id_cols=date, names_from=origin, values_from=temp)
+
+daily_temperature_wide
+```
+
+The DLTAM scores can be obtained by passing `daily_temperature_wide` to `dltam::dltam()`. We set the
+window size to 5 and the Moving Approximation Transform sequence size to 3.
+
+```{r}
+dltam_scores <- daily_temperature_wide %>%
+  dltam(JFK, LAX, timestamp=date, window_size=5, mat_seq_size=3)
+
+dltam_scores
+```
+
+We can now plot the DLTAM scores and identify time points of particular interest.
+
+```{r, fig.alt="Plot 1: Daily average temperatures in fahrenheit in 2013 for JFK and LAX airports. Plot 2: DLTAM scores."}
+p1 <- ggplot(daily_temperature) +
+  geom_line(aes(x=date, y=temp, colour=origin), alpha=0.6) +
+  scale_colour_manual(values = c("#009E73", "#D55E00")) +
+  scale_x_date(date_breaks="2 months", date_labels="%b") +
+  labs(x="", y="Average daily temperature (°F)", colour="") +
+  theme_bw(base_size = 9) +
+  theme(legend.position = "bottom")
+
+p2 <- ggplot(dltam_scores) +
+  geom_line(aes(x=timestamp, y=score), colour="black") +
+  scale_x_date(date_breaks="2 months", date_labels="%b") +
+  labs(x="", y="DLTAM score") +
+  theme_bw(base_size = 9)
+
+p1 / p2
+```
