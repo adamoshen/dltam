@@ -7,9 +7,7 @@
 #' (windows) of a time series. The DLTAM then uses windows (of same or different size) of the MAT
 #' values for a pair of time series to calculate the Local Trend Association Measure (LTAM), which
 #' is simply a cosine similarity of the slope values. As such, this gives a representation of
-#' the local strength of co-movement and the direction of movement for time series pairs. As a
-#' cosine similarity measure, the value is bounded between -1 (strong negative co-movement) and +1
-#' (strong positive co-movement).
+#' the local strength of co-movement and the direction of movement for time series pairs.
 #'
 #' @param .data A data frame or a data frame extension (e.g. a tibble).
 #' @param x,y Names of the columns containing the time series data, as symbols.
