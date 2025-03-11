@@ -1,12 +1,12 @@
-#' Calculate dynamic local trend association measure
+#' Calculate the dynamic local trend association measure
 #'
-#' Calculate dynamic local trend association measure (DLTAM) scores for a pair of time series.
+#' Calculate the dynamic local trend association measure (DLTAM) for a pair of time series.
 #'
 #' For a time series, the Moving Approximation Transform (MAT) uses a least-sqaures approach similar
 #' to what is used in simple linear regression, to calculate the slope coefficients for subsequences
 #' (windows) of a time series. The DLTAM then uses windows (of same or different size) of the MAT
-#' values for a pair of time series to calculate the Local Trend Association Measure (LTAM) values,
-#' which is simply a cosine similarity of the slope values. As such, this gives a representation of
+#' values for a pair of time series to calculate the Local Trend Association Measure (LTAM), which
+#' is simply a cosine similarity of the slope values. As such, this gives a representation of
 #' the local strength of co-movement and the direction of movement for time series pairs. As a
 #' cosine similarity measure, the value is bounded between -1 (strong negative co-movement) and +1
 #' (strong positive co-movement).
@@ -40,7 +40,7 @@ dltam <- function(
   check_column_exists(.data, {{ y }})
   check_column_exists(.data, {{ timestamp }}, allow_null=TRUE)
 
-  check_number_whole(window_size, min=1, max=initial_length)
+  check_number_whole(window_size, min=1, max=as.double(initial_length))
   check_number_whole(mat_seq_size, min=1, max=initial_length - window_size + 1)
 
   mat_x <- dplyr::pull(.data, {{ x }})
@@ -110,5 +110,5 @@ get_windowed_slope <- function(x, k) {
 #' @noRd
 ltam <- function(mat_x, mat_y) {
   # This is just the usual cosine similarity
-  drop(crossprod(x, y)) / sqrt(drop(crossprod(x^2)) * drop(crossprod(y^2)))
+  drop(crossprod(mat_x, mat_y)) / sqrt(drop(crossprod(mat_x^2)) * drop(crossprod(mat_y^2)))
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dltam.R
 \name{dltam}
 \alias{dltam}
-\title{Calculate dynamic local trend association measure}
+\title{Calculate the dynamic local trend association measure}
 \usage{
 dltam(.data, x, y, timestamp = NULL, window_size, mat_seq_size)
 }
@@ -24,14 +24,14 @@ Measure values from the Moving Approximation Transform slope values.}
 A \link[tibble:tibble-package]{tibble} with columns \code{timestamp} (if supplied) and \code{score}.
 }
 \description{
-Calculate dynamic local trend association measure (DLTAM) scores for a pair of time series.
+Calculate the dynamic local trend association measure (DLTAM) for a pair of time series.
 }
 \details{
 For a time series, the Moving Approximation Transform (MAT) uses a least-sqaures approach similar
 to what is used in simple linear regression, to calculate the slope coefficients for subsequences
 (windows) of a time series. The DLTAM then uses windows (of same or different size) of the MAT
-values for a pair of time series to calculate the Local Trend Association Measure (LTAM) values,
-which is simply a cosine similarity of the slope values. As such, this gives a representation of
+values for a pair of time series to calculate the Local Trend Association Measure (LTAM), which
+is simply a cosine similarity of the slope values. As such, this gives a representation of
 the local strength of co-movement and the direction of movement for time series pairs. As a
 cosine similarity measure, the value is bounded between -1 (strong negative co-movement) and +1
 (strong positive co-movement).
