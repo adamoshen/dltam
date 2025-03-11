@@ -18,10 +18,11 @@ Imports:
     rlang (>= 1.1.0),
     slider,
     tibble
+Suggests: 
+    loco (>= 0.0.0.9000),
+    svglite
+Remotes: 
+    adamoshen/loco
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Suggests: 
-    loco (>= 0.0.0.9000)
-Remotes:  
-    adamoshen/loco
