@@ -108,5 +108,5 @@ get_windowed_slope <- function(x, k) {
 #' @noRd
 ltam <- function(mat_x, mat_y) {
   # This is just the usual cosine similarity
-  drop(crossprod(mat_x, mat_y)) / sqrt(drop(crossprod(mat_x^2)) * drop(crossprod(mat_y^2)))
+  drop(crossprod(mat_x, mat_y)) / sqrt(drop(crossprod(mat_x)) * drop(crossprod(mat_y)))
 }
