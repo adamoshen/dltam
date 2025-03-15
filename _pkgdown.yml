@@ -1,0 +1,8 @@
+url: https://adamoshen.github.io/dltam
+template:
+  bootstrap: 5
+  bootswatch: zephyr
+  bslib:
+    primary: "#8C2B30"
+    code_font: {google: "Fira Mono"}
+  theme: atom-one-light
