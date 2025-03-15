@@ -63,12 +63,13 @@ daily_temperature_wide <- daily_temperature %>%
 daily_temperature_wide
 ```
 
-The DLTAM scores can be obtained by passing `daily_temperature_wide` to `dltam::dltam()`. We set the
-window size to 5 and the Moving Approximation Transform sequence size to 3.
+The DLTAM scores can be obtained by passing `daily_temperature_wide` to `dltam::dltam()`. Following
+the example in the paper, which used daily data, we set the window size to 30 and the Moving
+Approximation Transform sequence size to 16.
 
 ```{r}
 dltam_scores <- daily_temperature_wide %>%
-  dltam(JFK, LAX, timestamp=date, window_size=5, mat_seq_size=3)
+  dltam(JFK, LAX, timestamp=date, window_size=30, mat_seq_size=16)
 
 dltam_scores
 ```

@@ -96,28 +96,29 @@ daily_temperature_wide
 ```
 
 The DLTAM scores can be obtained by passing `daily_temperature_wide` to
-`dltam::dltam()`. We set the window size to 5 and the Moving
-Approximation Transform sequence size to 3.
+`dltam::dltam()`. Following the example in the paper, which used daily
+data, we set the window size to 30 and the Moving Approximation
+Transform sequence size to 16.
 
 ``` r
 dltam_scores <- daily_temperature_wide %>%
-  dltam(JFK, LAX, timestamp=date, window_size=5, mat_seq_size=3)
+  dltam(JFK, LAX, timestamp=date, window_size=30, mat_seq_size=16)
 
 dltam_scores
-#> # A tibble: 358 × 2
-#>    timestamp    score
-#>    <date>       <dbl>
-#>  1 2013-01-01 -0.589 
-#>  2 2013-01-02 -0.904 
-#>  3 2013-01-03 -0.0404
-#>  4 2013-01-04  0.577 
-#>  5 2013-01-05  0.375 
-#>  6 2013-01-06 -0.200 
-#>  7 2013-01-07 -0.389 
-#>  8 2013-01-08 -0.350 
-#>  9 2013-01-09 -0.335 
-#> 10 2013-01-10 -0.202 
-#> # ℹ 348 more rows
+#> # A tibble: 320 × 2
+#>    timestamp   score
+#>    <date>      <dbl>
+#>  1 2013-01-01 -0.759
+#>  2 2013-01-02 -0.728
+#>  3 2013-01-03 -0.729
+#>  4 2013-01-04 -0.724
+#>  5 2013-01-05 -0.713
+#>  6 2013-01-06 -0.695
+#>  7 2013-01-07 -0.681
+#>  8 2013-01-08 -0.669
+#>  9 2013-01-09 -0.652
+#> 10 2013-01-10 -0.642
+#> # ℹ 310 more rows
 ```
 
 We can now plot the DLTAM scores and identify time points of particular
